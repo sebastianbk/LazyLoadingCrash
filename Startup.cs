@@ -36,10 +36,10 @@ namespace LazyLoadingCrash
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			
-			services.AddDbContext<BloggingContext>(options => {
-				options.UseLazyLoadingProxies();
+            services.AddDbContext<BloggingContext>(options => {
+                options.UseLazyLoadingProxies();
                 options.UseNpgsql("Host=localhost;Database=lazyloading;Username=postgres;Password=rainmaking;");
-			});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,12 +60,12 @@ namespace LazyLoadingCrash
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-			// Run migrations
-			using (var scope = app.ApplicationServices.CreateScope())
-			{
-				var context = scope.ServiceProvider.GetService<BloggingContext>();
-				context.Database.EnsureCreated();
-			}
+            // Run migrations
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetService<BloggingContext>();
+                context.Database.EnsureCreated();
+            }
 
             app.UseMvc(routes =>
             {
